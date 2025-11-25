@@ -2,14 +2,19 @@
 import { PageTitle } from "@/components/PageTitle/PageTitle"
 import { Box, Button, Center, Field, Fieldset, Flex, For, HStack, Input, NativeSelect, Stack, VStack } from "@chakra-ui/react"
 import { useEvents } from "./event.hook";
+import { useRouter } from "next/navigation";
 
 export default function eventRegisterPage() {
 
     const { register, handleSubmit, onSubmit } = useEvents();
+
+    const router = useRouter();
     return (
         <Flex direction="column" gap={4}>
             <PageTitle title="Registrar Novo Evento" description="Preencha os detalhes do evento abaixo para registrá-lo no sistema.">
+                <Button onClick={() => router.push('/home/dashboard/event')} variant="solid" size="sm">Ver Lista de Eventos</Button>
             </PageTitle>
+            <VStack mt={4}>
             <Box p={4} bg="bg.panel" shadow="md" borderRadius="md" w={"-webkit-fit-content"}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Fieldset.Root gap={4} w={['100%', 96]}>
@@ -53,8 +58,9 @@ export default function eventRegisterPage() {
 
                     </Fieldset.Root>
                 </form>
-
+        
             </Box>
+            </VStack>
         </Flex>
 
     )

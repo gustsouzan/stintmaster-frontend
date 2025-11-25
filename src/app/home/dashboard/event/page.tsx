@@ -2,18 +2,21 @@
 import { PageTitle } from "@/components/PageTitle/PageTitle";
 import { Button, Card, Flex, Image } from "@chakra-ui/react";
 import { useEvents } from "./events.hook";
+import { useRouter } from "next/navigation";
 
 export default function PageEvent() {
+
+  const router = useRouter();
 
   const {response} = useEvents();
   return (
     <Flex direction="column" gap={6}>
       <PageTitle title="Eventos" description="Explore os eventos disponíveis e participe das competições emocionantes!">
-        <Button variant="solid" size="sm">Criar Evento</Button>
+        <Button onClick={() => router.push('/home/register/event')} variant="solid" size="sm">Criar Evento</Button>
         </PageTitle>
 
       
-      <Flex gap={4}>
+      <Flex gap={4} flexWrap="wrap" justifyContent={"center"}>
         {response?.map((event) => (
           <Card.Root key={event.id} w={80} overflow="hidden">
             <Image
