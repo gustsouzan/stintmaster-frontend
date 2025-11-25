@@ -1,8 +1,8 @@
 'use client'
-import { PageTitle } from "@/components/PageTitle/PageTitle"
-import { Box, Button, Center, Field, Fieldset, Flex, For, HStack, Input, NativeSelect, Stack, VStack } from "@chakra-ui/react"
-import { useEvents } from "./event.hook";
+import { PageTitle } from "@/components/PageTitle/PageTitle";
+import { Box, Button, Field, Fieldset, Flex, Input, Stack, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useEvents } from "./event.hook";
 
 export default function eventRegisterPage() {
 

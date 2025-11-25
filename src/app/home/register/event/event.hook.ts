@@ -24,11 +24,11 @@ export const useEvents = () => {
 
   const onSubmit = async(data: Inputs) => {
     const response = await createEvent(data)
-    if (response) {
+    if (!response.error) {
       alert("Evento criado com sucesso!")
       reset()
     } else {
-      alert("Erro ao criar evento.")
+      alert(response.error || "Erro ao criar evento.")
     }
   }
 

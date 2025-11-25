@@ -24,11 +24,11 @@ export const usePilot = () => {
 
   const onSubmit = async(data: Inputs) => {
     const response = await createPilot(data)
-    if (response.success) {
+    if (!response.error) {
     alert("Piloto registrado com sucesso!")
     reset()
     } else {
-    alert(response.data.error || "Erro ao registrar piloto.")
+    alert(response.error || "Erro ao registrar piloto.")
     }
   }
 
