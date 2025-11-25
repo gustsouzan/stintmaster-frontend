@@ -16,7 +16,7 @@ export default function PagePilot() {
             </PageTitle>
 
             <Flex gap={4} flexWrap="wrap" justifyContent={"center"}>
-                {pilots.map((pilot) => (
+                {pilots?.map((pilot) => (
                     <Card.Root key={pilot.id} w={80} overflow="hidden">
                         <Image
                             src={pilot.image_url}
