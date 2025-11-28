@@ -1,4 +1,4 @@
-import { Event } from "@/app/home/dashboard/event/event.type";
+import { Event } from "@/components/Event/event.type";
 
 const fetchEvents = async (): Promise<Event[]> => {
 const res = await fetch('http://localhost:4040/api/v1/events', {

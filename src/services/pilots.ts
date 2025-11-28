@@ -1,4 +1,4 @@
-import { Pilot } from "@/app/home/dashboard/pilot/pilot.type";
+import { Pilot } from "@/components/Drivers/pilot.type";
 
 const fetchPilots = async (): Promise<Pilot[]> => {
     const res = await fetch('http://localhost:4040/api/v1/pilots', {
