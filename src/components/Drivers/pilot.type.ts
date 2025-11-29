@@ -1,6 +1,8 @@
+import { Car } from "@/type/car";
+
 export interface Pilot {
     ID: number;
-    Nome: string;
+    Name: string;
     Irating: number; 
-    Image: string;
+    cars: Car[];
 }

@@ -17,3 +17,11 @@ export interface Pista {
     Localizacao: string;
     Imagem: string;
 }
+
+export type Inputs = {
+  trackID: number
+  duration: number
+  minDrivers: number
+  maxDrivers: number
+  carClasses: string[]
+}

@@ -1,4 +1,5 @@
-import { Event } from "@/components/Event/event.type";
+import { Event, Inputs } from "@/components/Event/event.type";
+import { z } from "zod";
 
 const fetchEvents = async (): Promise<Event[]> => {
 const res = await fetch('http://localhost:4040/api/v1/events', {
@@ -11,15 +12,9 @@ const res = await fetch('http://localhost:4040/api/v1/events', {
     return data;
 };
 
-const createEvent = async (eventData: {
-    name: string;
-    platform: string;
-    date: string;
-    created_by: string;
-    duration: number;
-    image_url: string;
-}) => {
-    const res = await fetch('http://localhost:4040/api/v1/events/create-event', {
+const createEvent = async (eventData: Inputs
+): Promise<Event> => {
+    const res = await fetch('http://localhost:4040/api/v1/events/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

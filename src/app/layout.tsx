@@ -14,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
+        <div style={{ height: "100%", maxWidth: "1920px", margin: "0 auto" }}>
         <Provider>{children}</Provider>
+        </div>
       </body>
     </html>
   );

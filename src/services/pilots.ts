@@ -11,16 +11,8 @@ const fetchPilots = async (): Promise<Pilot[]> => {
     return data;
 }
 
-const createPilot = async (pilotData: {
-    name: string;
-    email: string;
-    age: number;
-    iracing_id: string;
-    experience: string;
-    team: string;
-    created_by: string;
-}) => {
-    const res = await fetch('http://localhost:4040/api/v1/pilots/create-pilot', {
+const createPilot = async (pilotData: Pilot) => {
+    const res = await fetch('http://localhost:4040/api/v1/pilots/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
