@@ -19,7 +19,7 @@ export default function Event() {
                                 <Select.Label>Pista</Select.Label>
                                 <Select.Control>
                                     <Select.Trigger>
-                                        <Select.ValueText placeholder="Select a pista" />
+                                        <Select.ValueText placeholder="Selecione uma pista" />
                                     </Select.Trigger>
                                     <Select.IndicatorGroup>
                                         <Select.Indicator />
