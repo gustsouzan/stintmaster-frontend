@@ -75,7 +75,7 @@ export default function Event() {
                             <Portal>
                                 <Select.Positioner>
                                     <Select.Content>
-                                        {carsClasses?.items.map((carClass) => (
+                                        {carsClasses.items.map((carClass) => (
                                             <Select.Item item={carClass} key={carClass.value}>
                                                 {carClass.label}
                                                 <Select.ItemIndicator />

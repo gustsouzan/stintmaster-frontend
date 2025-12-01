@@ -34,7 +34,7 @@ export const useEvent = () => {
     const carsClassesCollection = createListCollection({
       items: response ? response.map((carClass) => ({
         value: carClass,
-        label: carClass.Classe,
+        label: carClass,
       })) : [],
     })
     setCarsClasses(carsClassesCollection);
