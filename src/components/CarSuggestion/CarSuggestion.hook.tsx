@@ -3,7 +3,6 @@ import { CarSuggestions } from "@/type/car";
 import { useEffect, useState } from "react";
 
 export const useCarSuggestion = () => {
-    // Hook logic here (if any)
   
     const [carSuggestions, setCarSuggestions] = useState<CarSuggestions[]>([]);
 

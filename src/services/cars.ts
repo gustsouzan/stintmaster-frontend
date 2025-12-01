@@ -7,6 +7,9 @@ const fetchCarsByClass = async (): Promise<CarGroupedByClass[]> => {
             'Content-Type': 'application/json',
         },
     });
+    if (!res.ok) {
+        throw new Error('Failed to fetch cars by class');
+    }
     const data = await res.json();
     return data;
 }
@@ -18,6 +21,9 @@ const fetchCarSuggestions = async (): Promise<CarSuggestions[]> => {
             'Content-Type': 'application/json',
         },
     });
+    if (!res.ok) {
+        throw new Error('Failed to fetch car suggestions');
+    }
     const data = await res.json();
     return data;
 }
@@ -29,6 +35,9 @@ const fetchCarsClasses = async (): Promise<CarClass[]> => {
             'Content-Type': 'application/json',
         },
     });
+    if (!res.ok) {
+        throw new Error('Failed to fetch car classes');
+    }
     const data = await res.json();
     return data;
 }

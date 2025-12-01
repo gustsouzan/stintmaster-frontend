@@ -7,6 +7,9 @@ const fetchPilots = async (): Promise<Pilot[]> => {
             'Content-Type': 'application/json',
         },
     });
+    if (!res.ok) {
+        throw new Error('Failed to fetch pilots');
+    }
     const data = await res.json();
     return data;
 }
@@ -19,6 +22,9 @@ const createPilot = async (pilotData: Pilot) => {
         },
         body: JSON.stringify(pilotData),
     });
+    if (!res.ok) {
+        throw new Error('Failed to create pilot');
+    }
     const data = await res.json();
     return data;
 }

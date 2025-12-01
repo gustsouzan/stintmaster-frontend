@@ -1,4 +1,4 @@
-'use client";'
+"use client"
 import { Box, Button, CheckboxCard, Flex, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { useCarSuggestion } from "./CarSuggestion.hook";

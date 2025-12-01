@@ -1,5 +1,4 @@
 import { Event, Inputs } from "@/components/Event/event.type";
-import { z } from "zod";
 
 const fetchEvents = async (): Promise<Event[]> => {
 const res = await fetch('http://localhost:4040/api/v1/events', {
@@ -25,5 +24,5 @@ const createEvent = async (eventData: Inputs
     return data;
 }
 
-export { fetchEvents, createEvent };
+export { createEvent, fetchEvents };
 

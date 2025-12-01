@@ -24,7 +24,7 @@ export const useEvent = () => {
       items: response ? response.map((track) => ({
         value: track.ID.toString(),
         label: track.Nome,
-      })) : createListCollection<any>({ items: [] }),
+      })) : [],
     })
     setTracks(tracksCollection);
   }
@@ -35,7 +35,7 @@ export const useEvent = () => {
       items: response ? response.map((carClass) => ({
         value: carClass,
         label: carClass,
-      })) : createListCollection<any>({ items: [] }),
+      })) : [],
     })
     setCarsClasses(carsClassesCollection);
   }
