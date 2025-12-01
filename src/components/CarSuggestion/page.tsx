@@ -13,7 +13,7 @@ export default function CarSuggestionPage() {
         <Box w="100%" display={"flex"} flexDir="column" alignItems="center" p={4} gap={2}>
             <Heading size="md" mb={2}>Escolha um carro sugerido e inicie o cálculo do evento</Heading>
             <Flex mb={2} gap={2}>
-                {carSuggestions.map((car, idx) => (
+                {carSuggestions?.map((car, idx) => (
                     <CheckboxCard.Root
                         key={car.ID}
                         maxW="240px"

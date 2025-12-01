@@ -33,7 +33,7 @@ export const useEvent = () => {
     const response = await fetchCarsClasses();
     const carsClassesCollection = createListCollection({
       items: response ? response.map((carClass) => ({
-        value: carClass.Classe,
+        value: carClass,
         label: carClass.Classe,
       })) : [],
     })
