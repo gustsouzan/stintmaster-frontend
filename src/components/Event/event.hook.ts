@@ -1,6 +1,8 @@
 import { fetchCarsClasses } from "@/services/cars"
 import { createEvent } from "@/services/events"
-import { getTracks } from "@/services/tracks"
+import { fetchTracks } from "@/services/tracks"
+import { CarClass } from "@/type/car"
+import { Track } from "@/type/track"
 import { createListCollection, ListCollection } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -18,10 +20,17 @@ export const useEvent = () => {
   const [tracks, setTracks] = useState<ListCollection>(createListCollection<any>({ items: [] }));
   const [carsClasses, setCarsClasses] = useState<ListCollection>(createListCollection<any>({ items: [] }));
 
-  const fetchTracks = async () => {
-    const response = await getTracks();
+  const {data: tracksFetched} = fetchTracks()
+
+  useEffect(()=> {
+    if(tracksFetched) {
+      createCollectionsTrackes(tracksFetched)
+    }
+  },[tracksFetched])
+
+  const createCollectionsTrackes = (list: Track[]) => {
     const tracksCollection = createListCollection({
-      items: response ? response.map((track) => ({
+      items: list ? list.map((track) => ({
         value: track.ID.toString(),
         label: track.Nome,
       })) : [],
@@ -29,10 +38,17 @@ export const useEvent = () => {
     setTracks(tracksCollection);
   }
 
-  const getCarsClasses = async () => {
-    const response = await fetchCarsClasses();
+  const {data: carClasses} = fetchCarsClasses();
+
+  useEffect(()=> {
+    if(carClasses) {
+      createCollectionsCarClasses(carClasses)
+    }
+  },[carClasses])
+
+  const createCollectionsCarClasses = (carClassesList: CarClass[]) => {
     const carsClassesCollection = createListCollection({
-      items: response ? response.map((carClass) => ({
+      items: carClassesList ? carClassesList.map((carClass) => ({
         value: carClass,
         label: carClass,
       })) : [],
@@ -49,12 +65,6 @@ export const useEvent = () => {
       alert("Erro ao criar evento.")
     }
   }
-
-
-  useEffect(() => {
-    fetchTracks();
-    getCarsClasses();
-  }, []);
 
   return {
     register,

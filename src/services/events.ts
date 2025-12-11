@@ -1,15 +1,5 @@
 import { Event, Inputs } from "@/components/Event/event.type";
-
-const fetchEvents = async (): Promise<Event[]> => {
-const res = await fetch('http://localhost:4040/api/v1/events', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    const data = await res.json();
-    return data;
-};
+import { useQuery } from "@tanstack/react-query";
 
 const createEvent = async (eventData: Inputs
 ): Promise<Event> => {
@@ -24,5 +14,5 @@ const createEvent = async (eventData: Inputs
     return data;
 }
 
-export { createEvent, fetchEvents };
+export { createEvent };
 

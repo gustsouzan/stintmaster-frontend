@@ -1,24 +1,27 @@
 import { Pilot } from "@/components/Drivers/pilot.type";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../lib/utils/services/api";
 
-const fetchPilots = async (): Promise<Pilot[]> => {
-    const res = await fetch('http://localhost:4040/api/v1/pilots', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
+const getPilots = async (): Promise<Pilot[]> => {
+    const res = await api({}).get('/api/v1/pilots');
+    if (!res) {
         throw new Error('Failed to fetch pilots');
     }
-    const data = await res.json();
-    return data;
+    return res.data;
 }
 
-const createPilot = async (pilotData: Pilot) => {
+export const fetchPilots = () => {
+    return useQuery<Pilot[]>({
+    queryKey: ['get-pilots'],
+    queryFn: () => getPilots(),
+});};
+
+const createPilot = async (pilotData: Pilot, token: string) => {
     const res = await fetch('http://localhost:4040/api/v1/pilots/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'token': `${token}`
         },
         body: JSON.stringify(pilotData),
     });
@@ -29,4 +32,18 @@ const createPilot = async (pilotData: Pilot) => {
     return data;
 }
 
-export { fetchPilots, createPilot };
+const apiRemovePilot = async (id: number) => {
+    const res = await fetch(`http://localhost:4040/api/v1/pilots/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!res.ok) {
+        throw new Error('Failed to remove pilot');
+    }
+    const data = await res.json();
+    return data;
+}
+
+export { apiRemovePilot, createPilot };

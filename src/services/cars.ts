@@ -1,46 +1,52 @@
+import { api } from "@/lib/utils/services/api";
 import { CarClass, CarGroupedByClass, CarSuggestions } from "@/type/car";
+import { useQuery } from "@tanstack/react-query";
 
-const fetchCarsByClass = async (): Promise<CarGroupedByClass[]> => {
-    const res = await fetch('http://localhost:4040/api/v1/cars/class-map', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
+const getCarsByClass = async (): Promise<CarGroupedByClass[]> => {
+    const res = await api({}).get('api/v1/cars/class-map');
+    if (!res) {
         throw new Error('Failed to fetch cars by class');
     }
-    const data = await res.json();
-    return data;
+    return res.data;
 }
 
-const fetchCarSuggestions = async (): Promise<CarSuggestions[]> => {
-    const res = await fetch('http://localhost:4040/api/v1/cars/car-suggestions', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
+export const fetchCarsByClass = () => {
+    return useQuery<CarGroupedByClass[]>({
+        queryKey: ['get-cars-class-map'],
+        queryFn: () => getCarsByClass(),
+        retry: 2
+    })
+}
+
+const getCarSuggestions = async (): Promise<CarSuggestions[]> => {
+    const res = await api({}).get('api/v1/cars/car-suggestions')
+    if (!res) {
         throw new Error('Failed to fetch car suggestions');
     }
-    const data = await res.json();
-    return data;
+    return res.data;
 }
 
-const fetchCarsClasses = async (): Promise<CarClass[]> => {
-    const res = await fetch('http://localhost:4040/api/v1/cars/classes', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
+export const fetchCarSuggestions = () => {
+    return useQuery<CarSuggestions[]>({
+        queryKey: ['get-cars-suggestions'],
+        queryFn: () => getCarSuggestions(),
+        retry:2
+    })
+}
+
+const getCarsClasses = async (): Promise<CarClass[]> => {
+    const res = await api({}).get('api/v1/cars/classes');
+    if (!res) {
         throw new Error('Failed to fetch car classes');
     }
-    const data = await res.json();
-    return data;
+    return res.data;
 }
 
-export { fetchCarsByClass, fetchCarSuggestions, fetchCarsClasses };
+export const fetchCarsClasses = () => {
+    return useQuery<CarClass[]>({
+        queryKey: ['get-cars-class'],
+        queryFn: () => getCarsClasses()
+    })
+}
+
 

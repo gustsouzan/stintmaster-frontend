@@ -6,14 +6,13 @@ export const useCarSuggestion = () => {
   
     const [carSuggestions, setCarSuggestions] = useState<CarSuggestions[]>([]);
 
-    const getCarSuggestions = async() => {
-        const response = await fetchCarSuggestions();
-        setCarSuggestions(response);
-    };
+    const {data} = fetchCarSuggestions();
 
     useEffect(() => {
-        getCarSuggestions();
-    }, []);
+        if (data){
+        setCarSuggestions(data);
+        }
+    }, [data]);
     return {
         carSuggestions,
     };
