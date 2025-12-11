@@ -1,8 +1,8 @@
 import { Car } from "@/type/car";
 
 export interface Pilot {
-    ID: number;
-    Name: string;
-    Irating: number; 
+    id: number;
+    name: string;
+    irating: number; 
     cars: Car[];
 }

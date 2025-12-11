@@ -8,7 +8,7 @@ import { LuCheck, LuX } from "react-icons/lu";
 
 export default function DriversPage() {
 
-    const { cars, register, handleSubmit, onSubmit } = usePilot();
+    const { pilotosCadastrados, cars, register, handleSubmit, onSubmit , removePilot} = usePilot();
     const [selectedCars, setSelectedCars] = useState<string[]>([]);
 
     const carOptions = createListCollection({
@@ -34,7 +34,7 @@ export default function DriversPage() {
                             </Field.Label>
                             <Input
                                 placeholder="Digite o nome do piloto"
-                                {...register("Name")}
+                                {...register("name")}
                                 required
                             />
                         </Field.Root>
@@ -44,7 +44,7 @@ export default function DriversPage() {
                                 type="number"
                                 min={0}
                                 placeholder="iRating"
-                                {...register("Irating", { valueAsNumber: true })}
+                                {...register("irating", { valueAsNumber: true })}
                                 required
                             />
                         </Field.Root>
@@ -102,9 +102,9 @@ export default function DriversPage() {
                 <Box bgColor={"gray.900"} maxW={"sm"} p={4} borderRadius={8}>
                     <Heading mb={4} textAlign="center">Lista de Pilotos Cadastrados</Heading>
                     {pilotosCadastrados.map((piloto) => (
-                        <Card.Root key={piloto.ID} size={"sm"}>
+                        <Card.Root key={piloto.id} size={"sm"}>
                             <Card.Header>
-                                <Card.Title>{piloto.nome}</Card.Title>
+                                <Card.Title>{piloto.name}</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Stack >
@@ -112,7 +112,7 @@ export default function DriversPage() {
                                 </Stack>
                             </Card.Body>
                             <Card.Footer>
-                                <Button variant="subtle" colorPalette="red" flex="1">
+                                <Button variant="subtle" colorPalette="red" flex="1" onClick={() => removePilot(piloto.id)}>
                                     <LuX />
                                     Remove
                                 </Button>
@@ -124,21 +124,3 @@ export default function DriversPage() {
         </Flex>
     );
 }
-
-const pilotosCadastrados = [
-    {
-        ID: 1,
-        nome: "Gustavo Neves",
-        irating: 2500,
-    },
-    {
-        ID: 2,
-        nome: "João Silva",
-        irating: 1800,
-    },
-    {
-        ID: 3,
-        nome: "Maria Oliveira",
-        irating: 2200,
-    },
-];

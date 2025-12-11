@@ -1,17 +1,20 @@
+import { api } from "@/lib/utils/services/api";
 import { Track } from "@/type/track";
+import { useQuery } from "@tanstack/react-query";
 
 const getTracks = async (): Promise<Track[]> => {
-    const res = await fetch('http://localhost:4040/api/v1/tracks', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
-        throw new Error(`Failed to fetch tracks: ${res.status} ${res.statusText}`);
+    const res = await api({}).get('api/v1/tracks');
+    if (!res) {
+        throw new Error('Failed to fetch tracks');
     }
-    const data = await res.json();
-    return data;
+    return res.data;
 }
 
-export { getTracks };
+const fetchTracks = () => {
+    return useQuery<Track[]>({
+        queryKey: ['get-tracks'],
+        queryFn: () => getTracks()
+    })
+}
+
+export { fetchTracks };

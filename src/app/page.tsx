@@ -1,37 +1,34 @@
 'use client';
-import CarSuggestionPage from "@/components/CarSuggestion/page";
-import Drivers from "@/components/Drivers/page";
-import Event from "@/components/Event/page";
-import Race from "@/components/Race/page";
-import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
+import { AbsoluteCenter, Box, Button, Field, Heading, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { CalendarPlus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { useSession } from "./Session.context";
 
 
 export default function HomeV2() {
 
+    const router = useRouter()
 
     return (
-        <Flex direction="column" h="100vh" gap={4} p={"0 16px"}>
-            <Box bgColor={"gray.900"} w="100%" h="fit-content" p={4} borderRadius={8}>
-                <VStack>
-                    <Heading p={4}>StintMaster</Heading>
-                </VStack>
-            </Box>
-            <Flex gap={4}>
-                <Box h="100%" borderRadius={8}>
-                    <Drivers />
-                </Box>
-                <Flex direction="column" flex="1" gap={4} borderRadius={8}>
-                    <Box bgColor={"gray.900"} w={"100%"} h="fit-content" borderRadius={8}>
-                        <Event />
-                    </Box>
-                    <Box bgColor={"gray.900"} w={"100%"} borderRadius={8}>
-                        <CarSuggestionPage />
-                    </Box>
-                    <Box bgColor="gray.900" w="100%" flex="1" borderRadius={8}>
-                        <Race />
-                    </Box>
-                </Flex>
-            </Flex>
-        </Flex>
+        <AbsoluteCenter axis="both">
+        <Box p={6} maxW="sm" borderWidth="1px">
+            
+            <Stack gap={6}>
+                <Heading>Bem vindo ao Stint Master</Heading>
+                <Text>Crie ou consulte um evento já existente. Siga as instruções abaixo:</Text>
+            <Field.Root>
+                <Field.Label>Chave do evento</Field.Label>
+                <Input type="text"></Input>
+            </Field.Root>
+            <HStack>
+                <Button>Acessar</Button>
+                <Button type="button" onClick={() => {
+                    router.push("/event")
+                    }}>Criar nova sessão <CalendarPlus/></Button>
+            </HStack>
+            </Stack>
+        </Box>
+        </AbsoluteCenter>
     );
 }

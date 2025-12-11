@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Provider } from "@/components/ui/provider";
+import { SessionProvider } from "./Session.context";
 
 export const metadata: Metadata = {
   title: "StintMaster",
@@ -15,7 +16,9 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <div style={{ height: "100%", maxWidth: "1920px", margin: "0 auto" }}>
-        <Provider>{children}</Provider>
+          <Provider>
+              {children}
+          </Provider>
         </div>
       </body>
     </html>
