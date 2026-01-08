@@ -3,18 +3,18 @@ import { Track } from "@/type/track";
 import { useQuery } from "@tanstack/react-query";
 
 const getTracks = async (): Promise<Track[]> => {
-    const res = await api({}).get('api/v1/tracks');
+    const res = await api({}).get('/api/v1/tracks');
     if (!res) {
         throw new Error('Failed to fetch tracks');
     }
     return res.data;
 }
 
-const fetchTracks = () => {
+const useTracks = () => {
     return useQuery<Track[]>({
         queryKey: ['get-tracks'],
         queryFn: () => getTracks()
     })
 }
 
-export { fetchTracks };
+export { useTracks };

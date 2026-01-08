@@ -1,5 +1,5 @@
 "use client"
-import { Box, Button, Center, Checkbox, CheckboxCard, CloseButton, Dialog, Field, Flex, Heading, Input, Portal } from "@chakra-ui/react";
+import { Box, Button, Checkbox, CheckboxCard, CloseButton, Dialog, Field, Flex, Heading, Input, Portal } from "@chakra-ui/react";
 import { useState } from "react";
 import { useCarSuggestion } from "./CarSuggestion.hook";
 
@@ -7,6 +7,8 @@ export default function CarSuggestionPage() {
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const [selectedCar, setSelectedCar] = useState<number | null>(null);
+
+  const [pilotos, setPilotos] = useState(pilotosMock);
 
     const { carSuggestions } = useCarSuggestion();
 
@@ -46,7 +48,7 @@ export default function CarSuggestionPage() {
               <Dialog.Title>Selecione e complemente os dados dos pilotos para o Evento</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              {pilotosMock.map((piloto) => (
+              {pilotos.map((piloto) => (
                 <Box key={piloto.id} mb={4} p={4} borderWidth="1px" borderRadius="md">
                   <Heading size="sm" mb={2}>{piloto.name}</Heading>
                   <Checkbox.Root mb={2}>
@@ -62,7 +64,10 @@ export default function CarSuggestionPage() {
                         step="1"
                         value={piloto.tempo_volta}
                         onChange={(e) => {
-                          piloto.tempo_volta = e.target.value;
+                          const tempo_volta = e.target.value;
+                          setPilotos((prev) =>
+                            prev.map((p) => (p.id === piloto.id ? { ...p, tempo_volta } : p)),
+                          );
                         }}
                       />
                     </Field.Root>
@@ -72,7 +77,10 @@ export default function CarSuggestionPage() {
                         type="text"
                         value={piloto.consumo_volta}
                         onChange={(e) => {
-                          piloto.consumo_volta = e.target.value;
+                          const consumo_volta = e.target.value;
+                          setPilotos((prev) =>
+                            prev.map((p) => (p.id === piloto.id ? { ...p, consumo_volta } : p)),
+                          );
                         }}
                       />
                     </Field.Root>
@@ -83,7 +91,10 @@ export default function CarSuggestionPage() {
                         min={1}
                         value={piloto.maximo_stints}
                         onChange={(e) => {
-                          piloto.maximo_stints = parseInt(e.target.value, 10);
+                          const maximo_stints = Number.parseInt(e.target.value, 10);
+                          setPilotos((prev) =>
+                            prev.map((p) => (p.id === piloto.id ? { ...p, maximo_stints } : p)),
+                          );
                         }}
                       />
                     </Field.Root>

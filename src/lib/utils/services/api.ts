@@ -1,18 +1,19 @@
 import axios, { AxiosError } from 'axios';
 
-
-const getApi = ( headers = {}) => {
-  const baseURL =
-    // eslint-disable-next-line @typescript-eslint/dot-notation
-    process.env.NEXT_PUBLIC_API_URL;
+const getApi = (headers = {}) => {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const api = axios.create({
     baseURL,
     headers,
   });
 
-  const token = localStorage.getItem('sessionToken');
   api.interceptors.request.use(async (config) => {
-    config.headers['token-event'] = token;
+    if (typeof window !== 'undefined') {
+      const eventKey = window.localStorage.getItem('eventKey');
+      if (eventKey) {
+        config.headers['X-Event-Key'] = eventKey;
+      }
+    }
     return config;
   });
 

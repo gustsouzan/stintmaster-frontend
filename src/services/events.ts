@@ -1,17 +1,10 @@
 import { Event, Inputs } from "@/components/Event/event.type";
-import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/utils/services/api";
 
 const createEvent = async (eventData: Inputs
 ): Promise<Event> => {
-    const res = await fetch('http://localhost:4040/api/v1/events/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(eventData),
-    });
-    const data = await res.json();
-    return data;
+    const res = await api({ headers: { 'Content-Type': 'application/json' } }).post('/api/v1/events/', eventData);
+    return res.data;
 }
 
 export { createEvent };

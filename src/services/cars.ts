@@ -3,14 +3,14 @@ import { CarClass, CarGroupedByClass, CarSuggestions } from "@/type/car";
 import { useQuery } from "@tanstack/react-query";
 
 const getCarsByClass = async (): Promise<CarGroupedByClass[]> => {
-    const res = await api({}).get('api/v1/cars/class-map');
+    const res = await api({}).get('/api/v1/cars/class-map');
     if (!res) {
         throw new Error('Failed to fetch cars by class');
     }
     return res.data;
 }
 
-export const fetchCarsByClass = () => {
+export const useCarsByClass = () => {
     return useQuery<CarGroupedByClass[]>({
         queryKey: ['get-cars-class-map'],
         queryFn: () => getCarsByClass(),
@@ -19,14 +19,14 @@ export const fetchCarsByClass = () => {
 }
 
 const getCarSuggestions = async (): Promise<CarSuggestions[]> => {
-    const res = await api({}).get('api/v1/cars/car-suggestions')
+    const res = await api({}).get('/api/v1/cars/car-suggestions')
     if (!res) {
         throw new Error('Failed to fetch car suggestions');
     }
     return res.data;
 }
 
-export const fetchCarSuggestions = () => {
+export const useCarSuggestions = () => {
     return useQuery<CarSuggestions[]>({
         queryKey: ['get-cars-suggestions'],
         queryFn: () => getCarSuggestions(),
@@ -35,14 +35,14 @@ export const fetchCarSuggestions = () => {
 }
 
 const getCarsClasses = async (): Promise<CarClass[]> => {
-    const res = await api({}).get('api/v1/cars/classes');
+    const res = await api({}).get('/api/v1/cars/classes');
     if (!res) {
         throw new Error('Failed to fetch car classes');
     }
     return res.data;
 }
 
-export const fetchCarsClasses = () => {
+export const useCarClasses = () => {
     return useQuery<CarClass[]>({
         queryKey: ['get-cars-class'],
         queryFn: () => getCarsClasses()

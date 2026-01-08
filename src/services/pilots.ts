@@ -10,40 +10,20 @@ const getPilots = async (): Promise<Pilot[]> => {
     return res.data;
 }
 
-export const fetchPilots = () => {
+export const usePilots = () => {
     return useQuery<Pilot[]>({
     queryKey: ['get-pilots'],
     queryFn: () => getPilots(),
 });};
 
-const createPilot = async (pilotData: Pilot, token: string) => {
-    const res = await fetch('http://localhost:4040/api/v1/pilots/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'token': `${token}`
-        },
-        body: JSON.stringify(pilotData),
-    });
-    if (!res.ok) {
-        throw new Error('Failed to create pilot');
-    }
-    const data = await res.json();
-    return data;
+const createPilot = async (pilotData: Pilot) => {
+    const res = await api({ headers: { 'Content-Type': 'application/json' } }).post('/api/v1/pilots/', pilotData);
+    return res.data;
 }
 
 const apiRemovePilot = async (id: number) => {
-    const res = await fetch(`http://localhost:4040/api/v1/pilots/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if (!res.ok) {
-        throw new Error('Failed to remove pilot');
-    }
-    const data = await res.json();
-    return data;
+    const res = await api({ headers: { 'Content-Type': 'application/json' } }).delete(`/api/v1/pilots/${id}`);
+    return res.data;
 }
 
 export { apiRemovePilot, createPilot };

@@ -2,8 +2,6 @@
 import { AbsoluteCenter, Box, Button, Field, Heading, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { CalendarPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { useSession } from "./Session.context";
 
 
 export default function HomeV2() {

@@ -14,10 +14,19 @@ export const SessionProvider = ({
 }: {
   children: ReactNode
 }) => {
-    const [token, setToken] = useState<string>(uuidv4())
+    const [token, setToken] = useState<string>(() => {
+      if (typeof window === 'undefined') return uuidv4();
+      return (
+        window.localStorage.getItem('eventKey') ??
+        window.localStorage.getItem('sessionToken') ??
+        uuidv4()
+      );
+    });
 
     useEffect(() => {
-      localStorage.setItem('sessionToken', token);
+      if (typeof window === 'undefined') return;
+      window.localStorage.setItem('eventKey', token);
+      window.localStorage.removeItem('sessionToken');
     }, [token]);
 
     return (

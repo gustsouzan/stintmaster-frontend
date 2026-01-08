@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Provider } from "@/components/ui/provider";
-import { SessionProvider } from "./Session.context";
 
 export const metadata: Metadata = {
   title: "StintMaster",
