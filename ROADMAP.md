@@ -29,7 +29,7 @@ A última fase é integrar IA para sugerir estratégias e ajustes de stints com 
 - Next.js (App Router), React 19.
 - Chakra UI.
 - TanStack React Query.
-- Axios (parcialmente) + `fetch` (parcialmente).
+- Axios (via wrapper `api()`) + TanStack Query.
 - Zod (dependência presente, ainda não padronizada no código).
 
 ### UI / Rotas
@@ -39,10 +39,12 @@ A última fase é integrar IA para sugerir estratégias e ajustes de stints com 
 ### Sessão (cliente)
 - Contexto de sessão gera (ou reutiliza) uma `eventKey` e salva em `localStorage` como `eventKey`.
 - Client HTTP aplica `X-Event-Key` automaticamente via interceptor.
+- Migração automática: `sessionToken` → `eventKey` (mantém compatibilidade com dados antigos).
 
 ### Integração com API
 - `NEXT_PUBLIC_API_URL` existe em `.env`.
-- Parte dos services usa `api()` (axios com baseURL), porém outras funções usam `fetch` com `http://localhost:4040` hard-coded.
+- Todos os services usam `api()` (axios com baseURL); não há `localhost` hard-coded.
+- Endpoints usam paths consistentes (ex.: `/api/v1/...`).
 
 
 ## 3) Objetivos (3–6 semanas)
@@ -90,6 +92,10 @@ A última fase é integrar IA para sugerir estratégias e ajustes de stints com 
 **Critérios de aceite**
 - Existe documento curto com: padrão da `eventKey` + guia de chamada da API.
 - Todas as chamadas passam por um único client HTTP.
+
+**Status atual**
+- Implementado: `eventKey` em `localStorage` + header `X-Event-Key` no client HTTP.
+- Implementado: remoção de `fetch` com baseURL hard-coded; services unificados em `api()`.
 
 
 ### Milestone 1 — Event scoping + dados base (Sprint 1 | 1 semana)
@@ -142,14 +148,14 @@ A última fase é integrar IA para sugerir estratégias e ajustes de stints com 
 ## 6) Backlog priorizado (Epics → histórias)
 
 ### Epic A — Client HTTP e consistência (P0)
-- A1: Padronizar baseURL usando `NEXT_PUBLIC_API_URL` (sem hard-code de `localhost`).
-- A2: Unificar axios/fetch (recomendação: axios + wrapper `api()` + React Query).
-- A3: Padronizar headers e naming (`X-Event-Key` como padrão).
+- [x] A1: Padronizar baseURL usando `NEXT_PUBLIC_API_URL` (sem hard-code de `localhost`).
+- [x] A2: Unificar axios/fetch (axios + wrapper `api()` + React Query).
+- [x] A3: Padronizar headers e naming (`X-Event-Key` como padrão).
 
 ### Epic G — `eventKey` e isolamento (P0)
-- G1: UI de entrada/geração de `eventKey` (home).
-- G2: Provider global montado no layout (garantir acesso em todas rotas).
-- G3: Garantir que toda request inclua o header automaticamente.
+- [ ] G1: UI de entrada/geração de `eventKey` (home).
+- [x] G2: Provider global montado (garantir acesso em todas rotas).
+- [x] G3: Garantir que toda request inclua o header automaticamente.
 
 ### Epic B — Pilots (P0)
 - B1: Listagem (React Query) + criação + remoção com invalidação.
@@ -185,14 +191,13 @@ A última fase é integrar IA para sugerir estratégias e ajustes de stints com 
 
 
 ## 8) Riscos e dívidas técnicas atuais (para tratar cedo)
-- Inconsistência de client HTTP (axios + fetch misturados; baseURL hard-coded em pontos).
-- Provider de sessão existe, mas não está montado no layout (risco de uso inconsistente do token).
-- Alinhar contrato do header com o backend (padrão: `X-Event-Key`).
+- UI de entrada de `eventKey` ainda é parcial (campo existe, mas o fluxo “Acessar”/trocar chave não está implementado).
+- README do front ainda é template do Next.
 - README do front ainda é template do Next.
 
 
 ## 9) Decisões em aberto (para fechar o escopo)
-1) Nome final do header da `eventKey`: `X-Event-Key`.
+1) Nome final do header da `eventKey`: `X-Event-Key` (decidido).
 2) A `eventKey` será sempre um UUID gerado pelo front ou poderá ser “human-friendly”?
 3) O MVP do front precisa persistir/consultar stints (caso backend persista) ou apenas “calcular e renderizar”?
 4) Regras de carro/classe são obrigatórias já no roster do front ou somente no cálculo?
